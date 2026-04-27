@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadioManager - Gestão de Manutenção</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Login Layout -->
+    <div id="login-layout" style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 100vh; background-color: var(--bg-main);">
+        <div class="login-wrapper" style="width: 100%; max-width: 400px; margin: 0 auto;">
+            <div class="login-card card">
+                <div class="axia-brand" style="margin-bottom: 24px;">
+                    <div class="axia-logo"><span>AXIA</span><span class="light">ENERGIA</span></div>
+                    <div class="axia-subtitle">RadioManager</div>
+                </div>
+                <form id="form-login">
+                    <div class="form-group">
+                        <label>Usuário</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                    <div id="login-error" style="color: var(--danger); margin-top: 10px; font-size: 14px; text-align: center;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Principal -->
+    <div id="app-layout" class="app-container" style="display: none;">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo clickable" onclick="app.navigateTo('dashboard')" title="Ir para o início">
+                <div class="axia-brand" style="text-align: left;">
+                    <div class="axia-logo"><span>AXIA</span><span class="light">ENERGIA</span></div>
+                    <div class="axia-subtitle">RadioManager</div>
+                </div>
+            </div>
+            <nav style="display:flex; flex-direction:column; height: calc(100% - 60px);">
+                <div style="flex:1;">
+                    <a href="#" id="nav-dashboard" class="active">Dashboard</a>
+                    <a href="#" id="nav-gras">Listagem de GRAs</a>
+                    <a href="#" id="nav-users" style="display: none;">Gestão de Equipe</a>
+                </div>
+                <div style="margin-top:auto;">
+                    <a href="#" id="nav-logout" style="color: var(--danger);">Sair do Sistema</a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header style="display: flex; gap: 16px; align-items: center;">
+                <h1 id="page-title" style="flex: 1;">Dashboard Inicial</h1>
+                <button id="btn-nova-gra" class="btn btn-primary" style="display: none;">Nova GRA</button>
+                <button id="btn-novo-radio" class="btn btn-primary" style="display: none;">Adicionar Rádio</button>
+            </header>
+
+            <!-- VIEW: DASHBOARD -->
+            <section id="view-dashboard" class="view active">
+                <div class="cards-grid">
+                    <!-- Cards de GRA -->
+                    <div class="card stat-card" onclick="app.loadFilter('gra', 'Ativas')">
+                        <h3>GRAs Ativas</h3>
+                        <div class="value" id="stat-gras-ativas">0</div>
+                    </div>
+                    <div class="card stat-card" onclick="app.loadFilter('gra', 'Finalizada')">
+                        <h3>GRAs Finalizadas</h3>
+                        <div class="value" id="stat-gras-finalizadas">0</div>
+                    </div>
+
+                    <!-- Cards de Rádios -->
+                    <div class="card stat-card" onclick="app.loadFilter('radio', 'Recebido')">
+                        <h3>Rádios Recebidos</h3>
+                        <div class="value" id="stat-radios-recebidos">0</div>
+                    </div>
+                    <div class="card stat-card" onclick="app.loadFilter('radio', 'Enviado')">
+                        <h3>Rádios Enviados</h3>
+                        <div class="value" id="stat-radios-enviados">0</div>
+                    </div>
+                    <div class="card stat-card" onclick="app.loadFilter('radio', 'Retornado')">
+                        <h3>Rádios Retornados</h3>
+                        <div class="value" id="stat-radios-retornados">0</div>
+                    </div>
+                    <div class="card stat-card" onclick="app.loadFilter('radio', 'Devolvido')">
+                        <h3>Rádios Devolvidos</h3>
+                        <div class="value" id="stat-radios-devolvidos">0</div>
+                    </div>
+                    <div class="card stat-card" onclick="app.loadFilter('radio', 'Descarte')">
+                        <h3>Sem Conserto / Descarte</h3>
+                        <div class="value" id="stat-radios-descarte">0</div>
+                    </div>
+                </div>
+
+                <!-- Painel de Busca -->
+                <div class="search-panel" style="margin-top: 40px;">
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" id="global-search" class="search-input" placeholder="Faça uma busca rápida por GRAs, patrimônio, série, chamado, usuário ou OS e pressione ENTER..." style="width: 100%; max-width: 800px;">
+                    </div>
+                    
+                    <div id="search-results-area" style="display: none;">
+                        <div id="search-gras-container" class="card table-card" style="margin-bottom: 20px;">
+                            <h3 id="table-title-gras" style="padding: 16px 24px; border-bottom: 1px solid var(--border-color);">GRAs Encontradas</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Número GRA</th>
+                                        <th>Qtd Rádios</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="search-gras-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="search-radios-container" class="card table-card">
+                            <h3 id="table-title-radios" style="padding: 16px 24px; border-bottom: 1px solid var(--border-color);">Rádios Encontrados</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>GRA Base</th>
+                                        <th>Patrimônio</th>
+                                        <th>Série / Modelo</th>
+                                        <th>Usuário / Chamado</th>
+                                        <th>OS / Status</th>
+                                        <th>Anexo / Laudo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="search-radios-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: GRAs (Nível 1) -->
+            <section id="view-gras" class="view">
+                <div class="card table-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Número GRA</th>
+                                <th>Qtd Rádios</th>
+                                <th>Status</th>
+                                <th>Data Criação</th>
+                                <th>Data Orçamento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-gras-body">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- VIEW: Detalhes da GRA (Nível 2) -->
+            <section id="view-gra-detalhes" class="view">
+                <div class="gra-header-info card"
+                    style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 id="detalhe-gra-numero" style="display: inline-block; margin-right: 15px;">GRA-000</h2>
+                        <span class="badge" id="detalhe-gra-status">Criada</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-warning" onclick="app.openEditGra()" style="margin-right: 10px;">Editar
+                            GRA</button>
+                        <button class="btn btn-danger" onclick="app.deleteGra()">Excluir GRA</button>
+                    </div>
+                </div>
+
+                <div class="card table-card mt-20">
+                    <h3>Rádios Vinculados</h3>
+                    <table class="data-table" style="min-width: 1000px;">
+                        <thead>
+                            <tr>
+                                <th>Patrimônio</th>
+                                <th>Série / Modelo</th>
+                                <th>Centro de Custo</th>
+                                <th>Usuário / Chamado</th>
+                                <th>OS / Status</th>
+                                <th>Viabilidade</th>
+                                <th>Ações / Laudo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-radios-body">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- VIEW: Gestão de Usuários -->
+            <section id="view-users" class="view">
+                <div class="card table-card">
+                    <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0;">Equipe Cadastrada</h3>
+                        <button class="btn btn-primary" onclick="app.openNewUserModal()">Adicionar Usuário</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Usuário Login</th>
+                                <th>Nível de Acesso (Papel)</th>
+                                <th style="text-align: right;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-users-body">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal Nova GRA -->
+    <div id="modal-nova-gra" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" aria-label="Fechar">&times;</span>
+            <h2>Criar Nova GRA</h2>
+            <form id="form-nova-gra">
+                <div class="form-group">
+                    <label>Número da GRA</label>
+                    <input type="text" id="input-gra-numero" required>
+                </div>
+                <div class="form-group">
+                    <label>Data de Criação</label>
+                    <input type="date" id="input-gra-data-criacao" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar GRA</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Editar GRA -->
+    <div id="modal-editar-gra" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" aria-label="Fechar">&times;</span>
+            <h2>Editar GRA</h2>
+            <form id="form-editar-gra">
+                <div class="form-group">
+                    <label>Número da GRA</label>
+                    <input type="text" id="edit-gra-numero" required>
+                </div>
+                <div class="form-group">
+                    <label>Data de Criação</label>
+                    <input type="date" id="edit-gra-data-criacao" required>
+                </div>
+                <div class="form-group">
+                    <label>Data de Orçamento (Opcional)</label>
+                    <input type="date" id="edit-gra-data-orcamento">
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Radio (Novo / Editar) -->
+    <div id="modal-radio" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" aria-label="Fechar">&times;</span>
+            <h2 id="modal-radio-title">Rádio</h2>
+            <form id="form-radio">
+                <input type="hidden" id="r-id">
+                <div class="form-row">
+                    <div class="form-group"><label>Patrimônio</label><input type="text" id="r-patrimonio" required>
+                    </div>
+                    <div class="form-group"><label>Nº Série</label><input type="text" id="r-serie" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Modelo</label><input type="text" id="r-modelo" required></div>
+                    <div class="form-group"><label>Centro de Custo</label><input type="text" id="r-cc" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Usuário</label><input type="text" id="r-usuario"></div>
+                    <div class="form-group"><label>Nº Chamado</label><input type="text" id="r-chamado"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Valor Reparo (R$)</label><input type="number" step="0.01"
+                            id="r-vreparo"></div>
+                    <div class="form-group"><label>Valor Novo (R$)</label><input type="number" step="0.01" id="r-vnovo">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>OS Prestadora</label><input type="text" id="r-os"></div>
+                    <div class="form-group" id="r-status-group" style="display:none;">
+                        <label>Status Atual</label>
+                        <select id="r-status">
+                            <option value="Recebido">Recebido</option>
+                            <option value="Enviado">Enviado</option>
+                            <option value="Retornado">Retornado</option>
+                            <option value="Devolvido">Devolvido</option>
+                            <option value="Descarte">Descarte</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group upload-area" id="r-upload-area">
+                    <label>Anexar Laudo Técnico (.PDF)</label>
+                    <input type="file" id="r-pdf" accept=".pdf,.png,.jpg">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar Rádio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Novo Usuário -->
+    <div id="modal-novo-usuario" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-modal" aria-label="Fechar">&times;</span>
+            <h2 id="modal-usuario-title">Nova Conta de Acesso</h2>
+            <form id="form-novo-usuario">
+                <input type="hidden" id="input-usr-id">
+                <div class="form-group">
+                    <label>Nome de Usuário</label>
+                    <input type="text" id="input-usr-nome" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha Provisória</label>
+                    <input type="password" id="input-usr-senha">
+                    <small style="color: var(--text-secondary); font-size: 12px; display: none;" id="input-usr-senha-hint">Deixe em branco para não alterar a senha.</small>
+                </div>
+                <div class="form-group">
+                    <label>Perfil (Role)</label>
+                    <select id="input-usr-papel" required>
+                        <option value="user">Técnico / Padrão</option>
+                        <option value="admin">Administrador (Gestão de Acesso)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Criar Usuário</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

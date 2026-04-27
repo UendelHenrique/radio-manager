@@ -1,0 +1,153 @@
+{
+    "gras": [
+        {
+            "id": "ee581525-4a9c-4749-9ee3-58a392ee918a",
+            "numero_gra": "GRA_4206",
+            "data_criacao": "2025-12-23",
+            "status": "Finalizada",
+            "data_orcamento": "2026-03-23"
+        },
+        {
+            "id": "72ecc70a-188f-42ff-9e46-d3816d9b551c",
+            "numero_gra": "GRA_4207",
+            "data_criacao": "2025-12-23",
+            "status": "Criada",
+            "data_orcamento": "2026-03-23"
+        },
+        {
+            "id": "e2cd8907-c113-483f-9042-9add6aa55540",
+            "numero_gra": "GRA_4208",
+            "data_criacao": "2025-12-23",
+            "status": "Criada",
+            "data_orcamento": "2026-03-23"
+        }
+    ],
+    "radios": [
+        {
+            "id": "a3d34a1c-5210-4723-ae77-d9f3998f79bb",
+            "gra_id": "ee581525-4a9c-4749-9ee3-58a392ee918a",
+            "patrimonio": "9026",
+            "num_serie": "807NPM00V3",
+            "modelo": "DGP5050",
+            "centro_custo": "20402 - OPERAÇÃO",
+            "usuario_solicitante": "",
+            "num_chamado": "170719",
+            "valor_reparo": 845.0,
+            "valor_novo": 8500.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Devolvido"
+        },
+        {
+            "id": "13a1154f-d4f2-47a2-8482-83a666de327f",
+            "gra_id": "ee581525-4a9c-4749-9ee3-58a392ee918a",
+            "patrimonio": "9127",
+            "num_serie": "807NQD0011",
+            "modelo": "DGP5050",
+            "centro_custo": "20402 - OPERAÇÃO",
+            "usuario_solicitante": "",
+            "num_chamado": "170719",
+            "valor_reparo": 6700.0,
+            "valor_novo": 8800.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Devolvido"
+        },
+        {
+            "id": "e1c623c5-93b5-4cbe-8e27-77c354f87fea",
+            "gra_id": "ee581525-4a9c-4749-9ee3-58a392ee918a",
+            "patrimonio": "7685",
+            "num_serie": "511NQD008S",
+            "modelo": "DGM5000",
+            "centro_custo": "20402 - OPERAÇÃO",
+            "usuario_solicitante": "",
+            "num_chamado": "",
+            "valor_reparo": 0.0,
+            "valor_novo": 0.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Devolvido"
+        },
+        {
+            "id": "7c1c5b95-e83f-4353-b809-ecc236ee7ee3",
+            "gra_id": "72ecc70a-188f-42ff-9e46-d3816d9b551c",
+            "patrimonio": "9139",
+            "num_serie": "807NRT002G",
+            "modelo": "DGP5050",
+            "centro_custo": "020405 - MANUTENÇÃO DE SISTEMA",
+            "usuario_solicitante": "",
+            "num_chamado": "",
+            "valor_reparo": 5800.0,
+            "valor_novo": 8800.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Enviado"
+        },
+        {
+            "id": "9fcae9ea-80f0-4b54-93eb-806be078b2e6",
+            "gra_id": "72ecc70a-188f-42ff-9e46-d3816d9b551c",
+            "patrimonio": "7975",
+            "num_serie": "807NRT0027",
+            "modelo": "DGP5050",
+            "centro_custo": "020405 - MANUTENÇÃO DE SISTEMA",
+            "usuario_solicitante": "",
+            "num_chamado": "171213",
+            "valor_reparo": 1250.0,
+            "valor_novo": 8800.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Retornado"
+        },
+        {
+            "id": "234f1360-6698-4fb9-8863-ed142f3f0f49",
+            "gra_id": "e2cd8907-c113-483f-9042-9add6aa55540",
+            "patrimonio": "9012",
+            "num_serie": "807NPM003B",
+            "modelo": "DGP5050",
+            "centro_custo": "020403 MANUTENCAO DE UNIDADES GERADORAS",
+            "usuario_solicitante": "",
+            "num_chamado": "170517",
+            "valor_reparo": 0.0,
+            "valor_novo": 0.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": "234f1360-6698-4fb9-8863-ed142f3f0f49.pdf",
+            "os_prestadora": "",
+            "status": "Descarte"
+        },
+        {
+            "id": "c2c8a438-9dd5-4ef5-81fd-374c61e3dc3b",
+            "gra_id": "e2cd8907-c113-483f-9042-9add6aa55540",
+            "patrimonio": "9142",
+            "num_serie": "807NPM00R1",
+            "modelo": "DGP5050",
+            "centro_custo": "020403 MANUTENCAO DE UNIDADES GERADORAS",
+            "usuario_solicitante": "",
+            "num_chamado": "171327",
+            "valor_reparo": 0.0,
+            "valor_novo": 0.0,
+            "laudo_texto": "",
+            "laudo_pdf_path": null,
+            "os_prestadora": "",
+            "status": "Recebido"
+        }
+    ],
+    "users": [
+        {
+            "id": "e786a060-9d77-4696-bc85-44e05e5488be",
+            "username": "admin",
+            "password_hash": "scrypt:32768:8:1$AfOaUZTyTO1seqdh$9d192bfa35733efa3394da94d12d17c640cbe2e54aa7104c8779215b5f481ee21ed880da5feaf77522d5c5ae7c312c13b805c08ff6de2d76aa11ad07d93c57dd",
+            "role": "admin"
+        },
+        {
+            "id": "7beb6924-e823-4b4b-b168-048148df67cc",
+            "username": "teste",
+            "password_hash": "scrypt:32768:8:1$K7Cbo6tOJgimSohF$28a2718b908084f5df927672f10b96c45aa6f26e3b1a238c32271e6ac73c23cffabe3a1675ae671a57959149aab4e15c920ac224b6cfd2adb958eefa1faadaae",
+            "role": "user"
+        }
+    ]
+}
