@@ -11,6 +11,7 @@ const app = {
         this.setupSearch();
         this.setupModals();
         this.setupForms();
+        this.setupSidebarToggle();
         
         if (this.token) {
             this.showApp();
@@ -143,6 +144,15 @@ const app = {
         this.showLogin();
     },
 
+    setupSidebarToggle() {
+        const btn = document.getElementById('btn-toggle-sidebar');
+        const sidebar = document.querySelector('.sidebar');
+        if(btn && sidebar) {
+            btn.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+            });
+        }
+    },
 
     // --- Navigation ---
     setupNavigation() {
